@@ -29,6 +29,7 @@ def simpleTest():
 	print("Testing network connectivity")
 	net.pingAll()
 	net.stop()
+	
 if __name__ == '__main__':
 	setLogLevel('info')
 	simpleTest()
