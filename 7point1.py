@@ -10,10 +10,6 @@ from mininet.log import setLogLevel
 class LinearTopo(Topo):
 	"Linear topology of k switches, with one host per switch."
 	def __init__(self, k=2, **opts):
-		"""Init.
-		k: number of switches (and hosts)
-		hconf: host configuration options
-		lconf: link configuration options"""
 		super(LinearTopo, self).__init__(**opts)
 		self.k = k
 		lastSwitch = None
