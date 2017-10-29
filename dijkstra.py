@@ -6,6 +6,7 @@ from pox.lib.addresses import EthAddr
 from collections import namedtuple
 import os
 ''' Add your imports here ... '''
+import csv
 
 
 
@@ -38,34 +39,35 @@ class Dijkstra (EventMixin):
         log.debug("Enabling Dijkstra Module")
 
     def _handle_ConnectionUp (self, event):    
-        ''' Add your logic here ... '''
-        visited = {initial: 0}
-        path = {}
-        nodes = set(graph.nodes)
-        while nodes: 
-            min_node = None
-            for node in nodes:
-                if node in visited:
-                    if min_node is None:
-                      min_node = node
-                    elif visited[node] < visited[min_node]:
-                      min_node = node
+      visited = {initial: 0}
+      path = {}
 
-                if min_node is None:
-                  break
+      nodes = set(graph.nodes)
 
-                nodes.remove(min_node)
-                current_weight = visited[min_node]
+      while nodes: 
+        min_node = None
+        for node in nodes:
+          if node in visited:
+            if min_node is None:
+              min_node = node
+            elif visited[node] < visited[min_node]:
+              min_node = node
 
-                for edge in graph.edges[min_node]:
-                  weight = current_weight + graph.distance[(min_node, edge)]
-                  if edge not in visited or weight < visited[edge]:
-                    visited[edge] = weight
-                    path[edge] = min_node
+        if min_node is None:
+          break
 
-                return visited, path
+        nodes.remove(min_node)
+        current_weight = visited[min_node]
+
+        for edge in graph.edges[min_node]:
+          weight = current_weight + graph.distance[(min_node, edge)]
+          if edge not in visited or weight < visited[edge]:
+            visited[edge] = weight
+            path[edge] = min_node
+
+      return visited, path
         
-    log.debug("Dijkstra installed on %s", dpidToStr(event.dpid))        
+    #log.debug("Dijkstra installed on %s", dpidToStr(pox.lib.revent.dpid))        
 
 def launch ():
     '''
