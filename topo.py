@@ -2,7 +2,7 @@ from mininet.topo import Topo
 
 class q9topo(Topo):
     def __init__(self, **opts):
-        # Initialize topology and default options
+        # define topology
         Topo.__init__(self, **opts)
         # add hosts
         h13 = self.addHost('h13')
